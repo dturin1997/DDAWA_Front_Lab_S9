@@ -12,27 +12,28 @@ const inputCategoryProduct = $("#input-category-product");
 const btnCreateProduct = $("#btn-create-product");
 const tbodyproducts = $("#tbody-products");
 
-const data = {};
+const dataCategory = {};
+const dataProduct = {};
 
 inputName.onkeyup = function (event) {
-  data.name = event.target.value;
+    dataCategory.name = event.target.value;
 };
 
 /* Capturar datos de Inputs de Producto */
 inputNameProduct.onkeyup = function (event) {
-    data.name = event.target.value;
+    dataProduct.name = event.target.value;
 };
 inputPriceProduct.onkeyup = function (event) {
-    data.price = Number(event.target.value);
+    dataProduct.price = Number(event.target.value);
 };
 inputUrlImageProduct.onkeyup = function (event) {
-    data.url_image = event.target.value;
+    dataProduct.url_image = event.target.value;
 };
 inputDiscountProduct.onkeyup = function (event) {
-    data.discount = Number(event.target.value);
+    dataProduct.discount = Number(event.target.value);
 };
 inputCategoryProduct.onkeyup = function (event) {
-    data.category = Number(event.target.value);
+    dataProduct.category = Number(event.target.value);
 };
 
 /* */
@@ -60,7 +61,7 @@ getProducts();
 
 btnCreate.onclick = async function () {
   try {
-    const result = await post("/category", data);
+    const result = await post("/category", dataCategory);
     inputName.value = "";
     renderRow(result);
   } catch (error) {
@@ -70,8 +71,12 @@ btnCreate.onclick = async function () {
 
 btnCreateProduct.onclick = async function () {
     try {
-      const result = await post("/product", data);
-      inputName.value = "";
+      const result = await post("/product", dataProduct);
+      inputNameProduct.value = "";
+      inputPriceProduct.value = "";
+      inputUrlImageProduct.value = "";
+      inputDiscountProduct.value = "";
+      inputCategoryProduct.value = "";
       renderRowProduct(result);
     } catch (error) {
       console.log(error);
